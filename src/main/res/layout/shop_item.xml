@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_marginTop="@dimen/abc_button_inset_vertical_material"
+    android:layout_marginLeft="@dimen/abc_button_inset_vertical_material"
+    android:layout_marginRight="@dimen/abc_button_inset_vertical_material"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/textReportShopName"
+        android:text="毛里湖野生鱼馆"
+        android:layout_height="wrap_content"
+        android:textColor="@color/abc_primary_text_material_light"
+        android:layout_marginLeft="@dimen/abc_action_bar_content_inset_material"
+        android:paddingTop="@dimen/abc_button_inset_vertical_material" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/textReportShopAddress"
+        android:text="火车站斜对面泽云广场(农业银行旁)"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/abc_action_bar_content_inset_material"
+        android:layout_below="@+id/textReportShopName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/textDistance"
+        android:text="2.4km"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/abc_action_bar_content_inset_material" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/textReportNums"
+        android:text="被投诉2次"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textReportShopAddress"
+        android:layout_marginLeft="@dimen/abc_action_bar_content_inset_material"
+        android:paddingTop="@dimen/abc_button_inset_vertical_material"
+        android:paddingBottom="@dimen/abc_button_inset_vertical_material" />
+
+
+
+</RelativeLayout>
