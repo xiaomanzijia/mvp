@@ -17,9 +17,9 @@ import java.util.List;
 /**
  * Created by licheng on 4/2/16.
  */
-public class BeautyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Beauty> beautyList;
+    private List<Gank> gankList;
 
     private Context mContext;
 
@@ -36,8 +36,8 @@ public class BeautyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         isShowFooter = showFooter;
     }
 
-    public BeautyAdapter(List<Beauty> beautyList, Context mContext) {
-        this.beautyList = beautyList;
+    public GankAdapter(List<Gank> ganks, Context mContext) {
+        this.gankList = ganks;
         this.mContext = mContext;
     }
 
@@ -71,11 +71,12 @@ public class BeautyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof ItemViewHolder){
-            ((ItemViewHolder) holder).imgHead.setImageURI(Uri.parse(beautyList.get(position).getUrl()));
-            ((ItemViewHolder) holder).reportshopname.setText(beautyList.get(position).getDescription());
-            ((ItemViewHolder) holder).reportnums.setText(beautyList.get(position).getDescription());
-            ((ItemViewHolder) holder).address.setText(beautyList.get(position).getDescription());
-            ((ItemViewHolder) holder).distance.setText(beautyList.get(position).getDescription());
+            FrescoUtils.loadImage(Uri.parse(gankList.get(position).getUrl()), ((ItemViewHolder) holder).imgHead);
+//            ((ItemViewHolder) holder).imgHead.setImageURI(Uri.parse(gankList.get(position).getUrl()));
+            ((ItemViewHolder) holder).reportshopname.setText(gankList.get(position).getCreatedAt());
+            ((ItemViewHolder) holder).reportnums.setText(gankList.get(position).getPublishedAt());
+            ((ItemViewHolder) holder).address.setText(gankList.get(position).getType());
+            ((ItemViewHolder) holder).distance.setText(gankList.get(position).getWho());
 
         }
         else if(holder instanceof FooterViewHolder){
@@ -106,10 +107,10 @@ public class BeautyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemCount() {
         int begin = isShowFooter?1:0;
-        if(beautyList == null) {
+        if(gankList == null) {
             return begin;
         }
-        return beautyList.size() + begin;
+        return gankList.size() + begin;
     }
 
     @Override

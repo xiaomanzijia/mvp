@@ -12,34 +12,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by licheng on 29/4/16.
  */
-public class BeautyFragment extends Fragment implements TaskDetailContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class GankFragment extends Fragment implements GankContract.View, SwipeRefreshLayout.OnRefreshListener {
 
-    private TaskDetailContract.Presenter presenter;
+    private GankContract.Presenter presenter;
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
-    private BeautyAdapter adapter;
-    private List<Beauty> beautyList;
+    private GankAdapter adapter;
+    private List<Gank> gankList;
     private int pageIndex = 1;
-    private int pageSize = 8;
+    private int pageSize = 10;
     private boolean isLastPage = false;
     private int lastVisibleItem = 0;
     private LinearLayoutManager linearLayoutManager;
 
-    public static BeautyFragment newInstance(){
-        return new BeautyFragment();
+    public static GankFragment newInstance(){
+        return new GankFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new TaskPresenter(this);
-        beautyList = new ArrayList<>();
+        gankList = new ArrayList<>();
     }
 
     @Override
@@ -64,10 +65,12 @@ public class BeautyFragment extends Fragment implements TaskDetailContract.View,
                 .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
                         .getDisplayMetrics()));
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new BeautyAdapter(beautyList,getActivity());
+        adapter = new GankAdapter(gankList,getActivity());
         recyclerView.setAdapter(adapter);
 
-        presenter.loadBeauty(1,8);
+        Log.i("test", "11111");
+
+        presenter.loadGank(pageSize,pageIndex);
 
 
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -84,8 +87,9 @@ public class BeautyFragment extends Fragment implements TaskDetailContract.View,
                         && lastVisibleItem + 1 == adapter.getItemCount()) {
                     Log.i("pageIndex",pageIndex+"");
                     //根据类目网络请求数据
+                    Log.e("test", "最后一页" + isLastPage);
                     if(!isLastPage){
-                        presenter.loadBeauty(pageIndex,pageSize);
+                        presenter.loadGank(pageSize,pageIndex);
                     }
                 }
             }
@@ -105,37 +109,35 @@ public class BeautyFragment extends Fragment implements TaskDetailContract.View,
     }
 
     @Override
-    public void showBeauty(List<Beauty> list) {
-        ActivityUtils.checkNotNull(list);
-        if(list != null){
-            if(pageIndex == 1){
-                beautyList.clear();
-                beautyList.addAll(list);
+    public void showGank(List<Gank> list) {
+        if (list != null) {
+            if (pageIndex == 1) {
+                gankList.clear();
+                gankList.addAll(list);
                 isLastPage = false;
-                pageIndex ++;
-            }else if(list                                                                                                                                                                                                                   .size() == pageSize){
-                beautyList.addAll(list);
+                pageIndex++;
+            } else if (list.size() == pageSize) {
+                gankList.addAll(list);
                 isLastPage = false;
-                pageIndex ++;
-            }else {
-                beautyList.addAll(list);
+                pageIndex++;
+            } else {
+                gankList.addAll(list);
                 isLastPage = true;
             }
         }
         adapter.notifyDataSetChanged();
-
-
     }
 
 
+
     @Override
-    public void setPresenter(TaskDetailContract.Presenter presenter) {
+    public void setPresenter(GankContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
     @Override
     public void onRefresh() {
         pageIndex = 1;
-        presenter.loadBeauty(pageIndex,pageSize);
+        presenter.loadGank(pageSize,pageIndex);
     }
 }

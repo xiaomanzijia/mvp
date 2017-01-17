@@ -1,5 +1,8 @@
 package com.licheng.example.mvp;
 
+import android.util.Log;
+
+import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.HashMap;
@@ -15,20 +18,19 @@ public class ServerHelper {
 
     private DataLoadListener listener;
 
-    public void getBeautyList(int pageIndex, int pageSize){
-        String url = "http://www.diandidaxue.com:8080/apiServer.do";
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("opcode", "getBeauty");
-        params.put("pageNum", String.valueOf(pageIndex));
-        params.put("numPerPage", String.valueOf(pageSize));
-        OkHttpUtils.post().url(url).params(params).build().execute(new ListBeautyCallBack() {
+    public void getGankList(int pageSize, int pageIndex){
+        String url = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/" + pageSize + "/" + pageIndex;
+        Log.i("test", url);
+        OkHttpUtils.get().url(url).build().execute(new GankResponseCallBack() {
             @Override
             public void onError(Call call, Exception e) {
                 listener.failure(e);
+                Log.i("test", "errorerror");
             }
 
             @Override
-            public void onResponse(List<Beauty> response) {
+            public void onResponse(List<Gank> response) {
+                Log.i("test", "数据获取成功 "  + new Gson().toJson(response, List.class));
                 listener.success(response);
             }
         });
@@ -36,7 +38,7 @@ public class ServerHelper {
 
     public interface DataLoadListener{
         void failure(Exception e);
-        void success(List<Beauty> beautyList);
+        void success(List<Gank> gankList);
     }
 
     public void setListener(DataLoadListener listener) {

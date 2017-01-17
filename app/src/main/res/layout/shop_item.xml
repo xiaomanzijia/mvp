@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:layout_marginTop="@dimen/abc_button_inset_vertical_material"
     android:layout_marginLeft="@dimen/abc_button_inset_vertical_material"
-    android:layout_marginRight="@dimen/abc_button_inset_vertical_material"
-    >
+    android:layout_marginRight="@dimen/abc_button_inset_vertical_material">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:layout_width="50dp"
         android:id="@+id/imgHead"
+        fresco:actualImageScaleType="focusCrop"
         android:layout_height="50dp"
         android:layout_centerVertical="true" />
 
